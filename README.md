@@ -47,7 +47,7 @@ The `C.if()` method creates a new `Chainable` object:
   let beer = C.if(age => age > 20 || maybe)
 ```
 
-####Invoking the `Chainable` object
+#### Invoking the `Chainable` object
 The `Chainable` object can be called: invoking`Chainable(initialValue)` is the same as calling `Chainable.run(initialValue)`.
 The returned value is an `Evaluation` which can be converted into a promise.
 
@@ -57,7 +57,7 @@ The returned value is an `Evaluation` which can be converted into a promise.
   zero().then(console.warn);
 ```
 
-####Linear event handlers
+#### Linear event handlers
 You can rely on the inline event handlers `onTrue(value)`, `onFalse(value)`, `onError(reason)` to intervene with some action as long as the condition gets evaluated. Handlers are called synchronously:
 
 ```javascript
@@ -74,7 +74,7 @@ If an event handler is not passed a function, it will assume you want to output 
   C.if(_=> 1 - 1).onFalse("That's sad")();
 ```
 
-####Converting to a `Promise`
+#### Converting to a `Promise`
 You can transform a `Chainable` into a `Promise` with the method `Chainable.toPromise(initialValue)`. In this case, `.run()` will be called immediately and the promise either resolved or rejected.
 
 ```javascript
@@ -83,7 +83,7 @@ You can transform a `Chainable` into a `Promise` with the method `Chainable.toPr
 ```
 
 If you don't need to run it again, you can use memoize the `Evaluation` returned by `Chainable.run(initialValue)` and call `Evaluation.toPromise(void)`
-#####Immutability of the Evaluation
+##### Immutability of the Evaluation
 
 Once an `Evaluation` is resolved, it will never change its value. For this reason, `Chainable.run()` always returns a new `Evaluation`.
 ```javascript
@@ -102,7 +102,7 @@ Once an `Evaluation` is resolved, it will never change its value. For this reaso
 
 
 
-####Evaluating in a synchronous way
+#### Evaluating in a synchronous way
 When invoked, `Chainable.run(initialValue)` returns an `Evaluation` object.
 The `Evaluation` object differs from a `Promise` in many ways and as such does not have symmetrical features. However, `Evaluation.toPromise(void)` and the shortcut `Evaluation.then()` are easy ways to obtain one.
 
@@ -141,7 +141,7 @@ If you're using synchronous conditions, you can obtain the result of the evaluat
 ```
 If the condition is evaluated in an asynchronous way, accessing the property `Evaluation.value` before it's resolved will cause an error.
 
-####Passing a value
+#### Passing a value
 Each evaluation either resolves the condition with a boolean value or rejects it.
 `conject` determines a boolean in loose mode `!!value` and pass the original value on through the chain.
 
@@ -170,7 +170,7 @@ Or, while less readable, you can recycle an unused parameter:
   C.if(elem => ( elem = document.getElementById("search"), elem.value.startsWith("p") && elem ))
    .and(elem => ...);
 ```
-#####Passing multiple data
+##### Passing multiple data
 If you need to work on more variables, you can pack them together
 ```javascript
   C.if(person => {
@@ -193,10 +193,10 @@ If you need to work on more variables, you can pack them together
 
 
 
-###Logical operators
+### Logical operators
 Simpler conditions can be combined into the chain with logical operators.
 
-####Sequential operators
+#### Sequential operators
 
 Logical operators can be . `Chainable.and()`, `.or()`, `.xor()` and the more exotic `.nand()`, `nor()`, `.xnor()`:
 
@@ -207,7 +207,7 @@ Logical operators can be . `Chainable.and()`, `.or()`, `.xor()` and the more exo
    .onTrue()
    ();
 ```
-####Parallel operators
+#### Parallel operators
 Normally, logical operators are sequential and abide by the lazy behavior you would expect with `&&` or `||`.
 However, in some case you may need some parallel evaluation, that means, all operands are scheduled for an asynchronous evaluation.
 
