@@ -1,0 +1,6 @@
+src/
+sh/
+builds/
+*tgz
+.babelrc
+.jshintrc
