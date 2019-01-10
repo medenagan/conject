@@ -1,6 +1,6 @@
 {
   "name": "conject",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A mini-script for lazy sync / async conditional evaluation for node and browser",
   "main": "lib/conject.js",
   "scripts": {
@@ -18,10 +18,9 @@
     "help": "echo 'Grab the source from https://github.com/medenagan/conject to use the build* commands.'"
   },
   "keywords": [
-    "module",
-    "util",
     "async",
-    "callback"
+    "callback",
+    "front-end"
   ],
   "author": {
     "name": "Fabio Mereu",
