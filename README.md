@@ -4,6 +4,9 @@ conject
 A mini-script for lazy sync / async conditional evaluation for node and browser
 
 * * *
+[![Dependency Status](https://img.shields.io/david/medenagan/conject.svg)](https://david-dm.org/medenagan/conject)
+
+[![Dev Dependency Status](https://img.shields.io/david/dev/medenagan/conject.svg)](https://david-dm.org/medenagan/conject?type=dev)
 
 
 ### Main features
