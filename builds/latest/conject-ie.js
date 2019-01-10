@@ -1,4 +1,4 @@
-/* conject 0.1.0 | (c) Fabio Mereu | MIT license | https://github.com/medenagan/conject | 2019-01-10T00:23+01:00 */
+/* conject 0.1.1 | (c) Fabio Mereu | MIT license | https://github.com/medenagan/conject | 2019-01-10T22:12+01:00 */
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(_dereq_,module,exports){
 (function (global){
 "use strict";
@@ -7078,7 +7078,7 @@ function () {
       SYNCH pending or ongoing: .on(listener, ...) listner runs immediately
     - It can be encapsulated into a Promise with .toPromise(). WILL BREAK LAZINESS:
      This will cause calling .on() and evaluating it.
-    - .then() is a shortcut for .toPromise().then() 
+    - .then() is a shortcut for .toPromise().then()
     - .ona() method schedules the evaluation for async execution. Differently from .then(),
       which evalutes immediately but schedules the listeners async, .ona() evaluates asynch:
         .then(resolve); foo(); => [EVALUATE]+[FOO] +/async/[RESOLVE]
@@ -8897,7 +8897,7 @@ var fromAny = function fromAny(any) {
 };
 
 var DEBUG_COUNTER = 0;
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 var C = {
   Evaluation: Evaluation,
   Chainable: Chainable,
