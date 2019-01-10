@@ -4,3 +4,4 @@ builds/
 *tgz
 .babelrc
 .jshintrc
+.travis.yml
