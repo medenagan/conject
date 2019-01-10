@@ -3,10 +3,11 @@ conject
 
 A mini-script for lazy sync / async conditional evaluation for node and browser
 
-* * *
-
+[![Build Status](https://img.shields.io/travis/medenagan/conject.svg)](https://travis-ci.org/medenagan/conject/)
 [![Dependency Status](https://img.shields.io/david/medenagan/conject.svg)](https://david-dm.org/medenagan/conject)
 [![Dev Dependency Status](https://img.shields.io/david/dev/medenagan/conject.svg)](https://david-dm.org/medenagan/conject?type=dev)
+
+* * *
 
 ### Main features
 
