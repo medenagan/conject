@@ -1,0 +1,13 @@
+# Changelog
+List of major changes in `conject`
+
+## [0.1.1] - 2019-01-10
+
+### Added
+- Travis CI support
+
+### Removed
+- unused dependency `colors`
+
+## [0.1.0] - 2019-01-10
+First release
