@@ -6,9 +6,9 @@
 
 
   // Node / Browser timing function
-  const now = (typeof process === "object" && typeof process.hrtime === "function") 
+  const now = (typeof process === "object" && typeof process.hrtime === "function")
     ? (a, b) => ([a, b] = process.hrtime(), a * 1e3 + b * 1e-6)
-    : (typeof performance === "object" && typeof performance.now === "function") 
+    : (typeof performance === "object" && typeof performance.now === "function")
     ? performance.now.bind(performance)
     : Date.now;
 
@@ -90,7 +90,7 @@
      - It can be encapsulated into a Promise with .toPromise(). WILL BREAK LAZINESS:
        This will cause calling .on() and evaluating it.
 
-     - .then() is a shortcut for .toPromise().then() 
+     - .then() is a shortcut for .toPromise().then()
 
      - .ona() method schedules the evaluation for async execution. Differently from .then(),
         which evalutes immediately but schedules the listeners async, .ona() evaluates asynch:
@@ -271,10 +271,10 @@
 
     toString() {
       const {status, reason, value} = _.get(this);
-      const info = (status === EVALUATION_RESOLVED) 
+      const info = (status === EVALUATION_RESOLVED)
             ? value
             : (status === EVALUATION_REJECTED)
-            ? reason 
+            ? reason
             : "";
       return `<${status}>${info}`;
     }
@@ -334,7 +334,7 @@
 
   class TrueCondition extends StaticCondition {
     constructor() {
-      
+
       if (_.has(TrueCondition)) return _.get(TrueCondition);
 
       super(true);
@@ -345,7 +345,7 @@
 
   class FalseCondition extends StaticCondition {
     constructor() {
-      
+
       if (_.has(FalseCondition)) return _.get(FalseCondition);
 
       super(false);
@@ -517,7 +517,7 @@
 
       const resolver = (resolve, reject) => {
 
-        let result; 
+        let result;
 
         const testOne = (index = 0) => {
 
@@ -1322,7 +1322,7 @@
     .map(method => Object.assign(method, {
       compile: (root, ...params) => {
 
-        if (params.length - !root < 1) 
+        if (params.length - !root < 1)
           throw new Error(`.${method.name}() needs two or more Condition operands`);
 
         const parsed = params.map(fromAny);
@@ -1332,7 +1332,7 @@
         return new method.constructor(...parsed);
       }}
     )),
-    
+
     ... /* .fx() with zero parameters */
     [
       {name: "not", constructor: NegativeCondition},
@@ -1346,7 +1346,7 @@
         return new method.constructor(root);
       }}
     )),
-    
+
     ... /* .fx(single_parameter) */
     [
       {name: "in", constructor: DelayedCondition},
@@ -1382,7 +1382,7 @@
     ))
   ];
 
-  matryoshkingMethods.forEach(method => { 
+  matryoshkingMethods.forEach(method => {
 
     const {name, compile, starter} = method;
 
@@ -1439,7 +1439,7 @@
 
 
   let DEBUG_COUNTER = 0;
-  let DEBUG_MODE = true;
+  let DEBUG_MODE = false;
 
   const C = {
     Evaluation,
