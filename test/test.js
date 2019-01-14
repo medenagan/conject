@@ -1,9 +1,5 @@
-console.log("CIAO");
-
 var assert = require("assert");
-
 var C = require("../lib/conject");
-
 
 describe("C {} should be loaded", function() {
 
@@ -16,7 +12,7 @@ describe("C {} should be loaded", function() {
   });
 
   var starters = ["if", "and", "or", "xor", "nand", "nor", "xnor",
-    "anda", "ora", "xora", "nanda", "nora", "xnora"]; //     "in", "out", "atmost", "during"
+    "anda", "ora", "xora", "nanda", "nora", "xnora"];
 
   starters.forEach(function (operator) {
     it("C." + operator + " is a Function", function() {
@@ -24,7 +20,7 @@ describe("C {} should be loaded", function() {
     });
   });
 
-  var operators = starters.concat(["in", "out", "atmost", "during"])
+  var operators = starters.concat(["in", "out", "atmost", "during"]);
 
   operators.forEach(function (operator) {
     it("(new Chainable())." + operator + " is a Function", function() {
@@ -39,7 +35,9 @@ describe("Basic syncrhonous evaluation", function() {
 
   function testSingle (value) {
 
-    describe("C.if(" + JSON.stringify(value) + ")", function() {
+    var strValue = typeof value === "object" ? JSON.stringify(value) : String(value);
+
+    describe("C.if(" + strValue + ")", function() {
 
       var bool = !!value;
       var onTrue = false, onFalse = false, onError = false;
@@ -51,8 +49,14 @@ describe("Basic syncrhonous evaluation", function() {
         .onError(function () {onError = true;})
         .run();
 
-      it(".value === " + JSON.stringify(value), function() {
-        assert.deepStrictEqual(evaluation.value, value);
+      it(".value === " + strValue, function() {
+        if (isNaN(value)) {
+          assert.ok(isNaN(evaluation.value));
+        }
+
+        else {
+          assert.deepStrictEqual(evaluation.value, value);
+        }
       });
 
       it(".onTrue() was" + (bool ? " " : " not ") + "called", function() {
@@ -77,7 +81,6 @@ describe("Basic syncrhonous evaluation", function() {
   truthy.forEach(testSingle);
 
   falsy.forEach(testSingle);
-
 
 });
 
