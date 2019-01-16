@@ -56,31 +56,41 @@ describe("new Chainable should have all methods", function() {
   });
 });
 
-
-function testValue(description, getterC, value) {
+function testValue(description, getterC, value, async) {
   describe(description, function() {
 
-    it(".value === " + getString(value), function() {
+    it(".value === " + getString(value), function(done) {
 
       var evaluation = getterC().run();
 
-      if (typeof value === "number" && isNaN(value)) {
-        assert.ok(isNaN(evaluation.value));
-      }
-      else {
-        assert.deepStrictEqual(evaluation.value, value);
-      }
+      evaluation.on(
+        function (value) {
+          if (typeof value === "number" && isNaN(value)) {
+            assert.ok(isNaN(evaluation.value));
+          }
+          else {
+            assert.deepStrictEqual(evaluation.value, value);
+          }
+          done();
+        },
+
+        function (reason) {
+          done(reason);
+        }
+      );
+
     });
 
     testOnTrue(getterC, !!value);
     testOnFalse(getterC, !value);
     testOnError(getterC, false);
+    testOnAsynch(getterC, !!async)
   });
 }
 
 function testReason(description, getterC, reason) {
   describe(description, function() {
-    it(".run()" , function() {
+    it(".run() gives an error" , function() {
       assert.throws(
         function () {
           getterC().run();
@@ -92,92 +102,166 @@ function testReason(description, getterC, reason) {
       );
     });
 
-  //  testOnTrue(getterC, !!value);
-  //  testOnFalse(getterC, !value);
-  //testOnError(getterC, false);
   });
 }
 
 function testOnTrue(getterC, shouldOnTrue) {
-  it(".onTrue() was" + (shouldOnTrue ? " " : " NOT ") + "called", function() {
+  it(".onTrue() was" + (shouldOnTrue ? " " : " NOT ") + "called", function(done) {
     var wasCalled = false;
-    getterC().onTrue(function () {wasCalled = true}).run();
-    assert.deepStrictEqual(wasCalled, !!shouldOnTrue);
+    getterC().onTrue(function () {wasCalled = true}).run().on(
+      function () {
+        assert.ok(wasCalled === shouldOnTrue);
+        done();
+      },
+      function () {
+        assert.ok(wasCalled === shouldOnTrue);
+        done();
+      }
+    );
   });
 }
 
 function testOnFalse(getterC, shouldOnFalse) {
-  it(".onFalse() was" + (shouldOnFalse ? " " : " NOT ") + "called", function() {
+  it(".onFalse() was" + (shouldOnFalse ? " " : " NOT ") + "called", function(done) {
     var wasCalled = false;
-    getterC().onFalse(function () {wasCalled = true}).run();
-    assert.deepStrictEqual(wasCalled, !!shouldOnFalse);
+    getterC().onFalse(function () {wasCalled = true}).run().on(
+      function () {
+        assert.ok(wasCalled === shouldOnFalse);
+        done();
+      },
+      function () {
+        assert.ok(wasCalled === shouldOnFalse);
+        done();
+      }
+    );
   });
 }
 
 function testOnError(getterC, shouldOnError) {
-  it(".onError() was" + (shouldOnError ? " " : " NOT ") + "called", function() {
+  it(".onError() was" + (shouldOnError ? " " : " NOT ") + "called", function(done) {
     var wasCalled = false;
-    getterC().onError(function () {wasCalled = true}).run();
-    assert.deepStrictEqual(wasCalled, !!shouldOnError);
+    getterC().onError(function () {wasCalled = true}).run().on(
+      function () {
+        assert.ok(wasCalled === shouldOnError);
+        done();
+      },
+      function () {
+        assert.ok(wasCalled === shouldOnError);
+        done();
+      }
+    );
   });
 }
 
-
-describe("Basic syncrhonous evaluation", function() {
-
-  var truthy = ["Hello", 123.45, true, {yes: 1}, new Date()];
-  var falsy = [false, null, 0, "", undefined, NaN];
-
-  truthy.concat(falsy).forEach(function (value) {
-    var description = "C.if(" + getString(value) + ")";
-
-    testValue(
-      description,
-
-      function () {
-        return C.if(value);
-      },
-
-      value
-    );
-
+function testOnAsynch(getterC, shouldBeAsync) {
+  it("().async should be " + shouldBeAsync, function() {
+    assert.ok(getterC().run().async === shouldBeAsync);
   });
+}
 
-  describe("rejecting the evaluation - expects an error", function () {
+var truthy = ["Hello", 123.45, true, {yes: 1}, new Date()];
+var falsy = [false, null, 0, "", undefined, NaN];
 
-    var throwns = ["Failure", new Error("What's happened"), .0001];
+var truthyAndFalsy = [].concat(truthy).concat(falsy);
 
-    throwns.forEach(function (reason) {
-      var description = "C.throw(" + getString(reason) + ")";
+describe("Basic Evaluation", function () {
 
-      testReason(
-        description,
-
+  describe("Static", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(" + getString(value) + ")",
         function () {
-          return C.throw(reason);
+          return C.if(value);
         },
-        reason
+        value
       );
     });
   });
 
+  describe("Promise", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(Promise.resolve(" + getString(value) + "))",
+        function () {
+          return C.if(Promise.resolve(value));
+        },
+        value,
+        true
+      );
+    });
+  });
 
+  describe("Nested", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(C.if(" + getString(value) + "))",
+        function () {
+          return C.if(C.if(value));
+        },
+        value
+      );
+    });
+  });
 
+  describe("Synch Function", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(function () {} return " + getString(value) + ")",
+        function () {
+          return C.if(function () {return value;});
+        },
+        value
+      );
+    });
+  });
 
+  describe("ASYNC Function", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(function () {} return Promise.resolve(" + getString(value) + "))",
+        function () {
+          return C.if(function () {return Promise.resolve(value);});
+        },
+        value,
+        true
+      );
+    });
+  });
 
-//  throwns.forEach(testSingle);
+  describe("Function-C", function() {
+    truthyAndFalsy.forEach(function (value) {
+      testValue(
+        "C.if(function () {} return C.if(" + getString(value) + "))",
+        function () {
+          return C.if(function () {return C.if(value);});
+        },
+        value
+      );
+    });
+  });
 
+});
+
+describe("rejecting the evaluation", function () {
+  var throwns = ["Failure", new Error("What's happened"), .0001];
+
+  throwns.forEach(function (reason) {
+    var description = "C.throw(" + getString(reason) + ")";
+
+    testReason(
+      description,
+
+      function () {
+        return C.throw(reason);
+      },
+      reason
+    );
+  });
 });
 
 
 
-
-
-// https://shields.io/#/examples/platform-support
-
-
 /*
-
 
 console.log("");
 console.log("*** Simulating an error! You should expect undeclared is not define
@@ -200,4 +284,18 @@ C.if(null).atmost(Infinity).out(250).onFalse(_ => {
   const answer = ((tolerance > .8) && (tolerance < 1.2)) ? "OK" : "FAILED";
   console.log(answer, (diff / 1e3) + "s", "tolerance " + (tolerance * 1e2) + "%");
 }).run();
+
+
+
+
+
+
+console.log("PERSONAL")
+
+C.if( (val, scope) => {
+  console.log(val, scope);
+  scope.loaker = true;
+ })
+ .or( (val, scope) => console.log(val, scope) )
+ .debug(13, {ciaul: "29392020"});
 */
