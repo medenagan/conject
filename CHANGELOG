@@ -1,7 +1,23 @@
-# Changelog
+# What's new?
 List of major changes in `conject`
 
-## [0.1.1] - 2019-01-10
+## 0.2.0
+> 2019-01-17
+
+### Introduced
+- scoping context
+
+### Removed
+- property `DEBUG`
+
+### Refactored
+- code split into modules
+- mocha testing units
+
+---
+
+## 0.1.1
+>2019-01-10
 
 ### Added
 - Travis CI support
@@ -9,5 +25,9 @@ List of major changes in `conject`
 ### Removed
 - unused dependency `colors`
 
-## [0.1.0] - 2019-01-10
+---
+
+## 0.1.0
+> 2019-01-10
+
 First release
