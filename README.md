@@ -3,9 +3,11 @@ conject
 
 A mini-script for lazy sync / async conditional evaluation for node and browser
 
+[![Build Status](https://img.shields.io/npm/v/conject.svg)](https://www.npmjs.com/package/conject)
 [![Build Status](https://img.shields.io/travis/medenagan/conject.svg)](https://travis-ci.org/medenagan/conject/)
 [![Dependency Status](https://img.shields.io/david/medenagan/conject.svg)](https://david-dm.org/medenagan/conject)
 [![Dev Dependency Status](https://img.shields.io/david/dev/medenagan/conject.svg)](https://david-dm.org/medenagan/conject?type=dev)
+[![install size](https://packagephobia.now.sh/badge?p=conject)](https://packagephobia.now.sh/result?p=conject)
 
 * * *
 
@@ -199,6 +201,84 @@ C.if(person => {
 .and(combinedObject => ...)
 ({userid: "medenagan", name: "Fabio", surname: "Mereu"}) // run with an input
 ```
+
+#### Scoping
+> *Since 0.2*
+
+The `scope` paramater allows transfering an object along the chain:
+
+```javascript
+// Show the current time on console
+C
+.if(
+  (value, scope) => scope.today = new Date()
+)
+.and(
+  (value, scope) => scope.today.toLocaleTimeString()
+)
+.onTrue()
+();
+```
+
+To set an initial scope, you can explicit the second parameter of `Chainable.run(initialValue, initialScope)`:
+
+```javascript
+C
+.and(
+  (value, scope) => scope.enabled,
+  (value, scope) => !scope.hidden,
+)
+.run(0, {enabled = true, hidden = false});
+```
+##### `scope` is a shallow copy
+If some part of the evaluation needs being repeated under the intervention of a modifier such as `Chainable.atmost()` or `Chainable.during()`, changes on the `scope` object will not propagate backwards.
+```javascript
+// output:
+// { count: 0 }
+// { count: 1 }
+// { count: 0 }
+// { count: 1 }
+// { count: 0 }
+// { count: 1 }
+C.or(
+  (value, scope) => {
+    scope.count = scope.count || 0;
+    console.log(scope);
+  },
+  (value, scope) => {
+    scope.count += 1;
+    console.log(scope);
+    // both return undefined
+  }
+).atmost(3)();
+```
+
+##### `scope` is a shallow copy
+The `scope` object is copied in a shallow way through each step. Thus second level objects as `scope.customObject = {}` are not protected against alteration.
+
+```javascript
+// output:
+// { global: { count: 0 } }
+// { global: { count: 1 } }
+// { global: { count: 2 } }
+// { global: { count: 3 } }
+// { global: { count: 4 } }
+// { global: { count: 5 } }
+
+const global = {
+  count: 0
+};
+
+C.if(
+  (value, scope) => {
+    console.log(scope);
+    scope.global.count += 1;
+  }
+).atmost(6).run(null, {global});
+```
+
+
+.anda
 
 
 
