@@ -262,8 +262,12 @@ describe(".in()", function() {
     C.if(match).in(250).run().on(
       function (value) {
         var t1 = Date.now();
+        var delta = t1 - t0;
+        var absolute = delta - 250;
+        console.log("   >  executing in: (ms)", delta);
+        console.log("   >  absolute error: (ms)", absolute);
         assert.deepStrictEqual(value, match, "wrong value");
-        assert.ok(Math.abs(250 - (t1 - t0)) < 10, "ms mismatch");
+        assert.ok(Math.abs(absolute) < 10, "+/- 10ms");
         done();
       },
       function (reason) {
