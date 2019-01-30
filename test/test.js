@@ -268,7 +268,7 @@ describe(".in()", function() {
         var deltaOn = t2 - t1;
         var absoluteError = deltaIf - 250;
         // darwin: tolerance need being at least 10% linux/window no need
-        var tolerance = (os.platform() === "darwin") ? (250 * .3) : (250 * .05);
+        var tolerance = (os.platform() === "darwin") ? (250 * .3) : (250 * .1);
         console.log("   >  if executing in: (ms)", deltaIf);
         console.log("   >  on executing in: (ms)", deltaOn);
         console.log("   >  absolute error: (ms)", absoluteError);
