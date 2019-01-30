@@ -1,6 +1,7 @@
 src/
 sh/
 builds/
+local/
 *tgz
 .babelrc
 .jshintrc
