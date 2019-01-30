@@ -1,4 +1,5 @@
 var assert = require("assert");
+var os = require("os");
 var C = require("../lib/conject");
 
 function getString(variable) {
@@ -266,10 +267,13 @@ describe(".in()", function() {
         var deltaIf = t1 - t0;
         var deltaOn = t2 - t1;
         var absoluteError = deltaIf - 250;
+        // darwin: tolerance need being at least 10% linux/window no need
+        var tolerance = (os.platform() === "darwin") ? (250 * .3) : (250 * .05);
         console.log("   >  if executing in: (ms)", deltaIf);
         console.log("   >  on executing in: (ms)", deltaOn);
         console.log("   >  absolute error: (ms)", absoluteError);
-        assert.ok(Math.abs(absoluteError) < 25, "+/- 10ms"); // darwin: tolerance need being at least 10% linux/window no need
+        console.log("   >  tolerance accepted in " +  os.platform() + ": (ms)", tolerance);
+        assert.ok(Math.abs(absoluteError) < tolerance, "+/- " + tolerance + " ms");
         done();
       },
       function (reason) {
