@@ -277,11 +277,6 @@ C.if(
 ).atmost(6).run(null, {global});
 ```
 
-
-.anda
-
-
-
 ### Logical operators
 Simpler conditions can be combined into the chain with logical operators.
 
