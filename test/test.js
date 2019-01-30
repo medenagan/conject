@@ -259,15 +259,17 @@ describe(".in()", function() {
   it("executes in 250ms", function (done) {
     var match = "lion";
     var t0 = Date.now();
-    C.if(match).in(250).run().on(
+    C.if(function () {return Date.now()}).in(250).run().on(
       function (value) {
-        var t1 = Date.now();
-        var delta = t1 - t0;
-        var absolute = delta - 250;
-        console.log("   >  executing in: (ms)", delta);
-        console.log("   >  absolute error: (ms)", absolute);
-        assert.deepStrictEqual(value, match, "wrong value");
-        assert.ok(Math.abs(absolute) < 10, "+/- 10ms");
+        var t1 = value;
+        var t2 = Date.now();
+        var deltaIf = t1 - t0;
+        var deltaOn = t2 - t1;
+        var absoluteError = deltaIf - 250;
+        console.log("   >  if executing in: (ms)", deltaIf);
+        console.log("   >  on executing in: (ms)", deltaOn);
+        console.log("   >  absolute error: (ms)", absoluteError);
+        assert.ok(Math.abs(absoluteError) < 10, "+/- 10ms");
         done();
       },
       function (reason) {
