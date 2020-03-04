@@ -1,13 +1,15 @@
 os:
   - linux
   - osx
-  - windows  
+  - windows
 
 language: node_js
 
 node_js:
-  - 6
-  - 7
   - 8
   - 9
+  - 10
+  - 11
+  - 12
+  - 13
   - node
