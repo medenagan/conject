@@ -467,8 +467,6 @@ var C = C || conject;
 
 ```shell
 $ npm run build-node #transpile for the node version installed on your machine
-$ npm run build-node6 #transpile for node 6 (default)
-$ npm run build-node4 #transpile for node 4 (will create longer code))
 $ npm run build-browser #transpile and bundle for modern browsers
 $ npm run build-ie #transpile and bundle for old browsers adding a polyfill
 ```

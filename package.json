@@ -9,8 +9,6 @@
     "clean": "sh/clean.sh",
     "log": "sh/log.sh",
     "build-node": "sh/build-node.sh",
-    "build-node4": "sh/build-node4.sh",
-    "build-node6": "sh/build-node6.sh",
     "build-browser": "sh/build-browser.sh",
     "build-ie": "sh/build-ie.sh",
     "build": "sh/build.sh",
