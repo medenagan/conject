@@ -3,11 +3,12 @@ conject
 
 A mini-script for lazy sync / async conditional evaluation for node and browser
 
-[![Build Status](https://img.shields.io/npm/v/conject.svg)](https://www.npmjs.com/package/conject)
-[![Build Status](https://img.shields.io/travis/medenagan/conject.svg)](https://travis-ci.org/medenagan/conject/)
-[![Dependency Status](https://img.shields.io/david/medenagan/conject.svg)](https://david-dm.org/medenagan/conject)
-[![Dev Dependency Status](https://img.shields.io/david/dev/medenagan/conject.svg)](https://david-dm.org/medenagan/conject?type=dev)
-[![install size](https://packagephobia.now.sh/badge?p=conject)](https://packagephobia.now.sh/result?p=conject)
+[![CI](https://github.com/medenagan/conject/actions/workflows/ci.yml/badge.svg)](https://github.com/medenagan/conject/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/conject.svg?label=npm)](https://www.npmjs.com/package/conject)
+[![license](https://img.shields.io/npm/l/conject.svg?label=license)](https://github.com/medenagan/conject/blob/master/LICENSE)
+[![downloads](https://img.shields.io/npm/dm/conject.svg?label=downloads)](https://www.npmjs.com/package/conject)
+[![dependencies](https://img.shields.io/librariesio/release/npm/conject.svg?label=dependencies)](https://libraries.io/npm/conject)
+[![install size](https://packagephobia.com/badge?p=conject)](https://packagephobia.com/result?p=conject)
 
 * * *
 
