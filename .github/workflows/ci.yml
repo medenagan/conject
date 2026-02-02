@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    image: node:20
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test
