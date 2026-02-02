@@ -7,7 +7,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    image: node:20
+    container:
+      image: node:20
     steps:
       - uses: actions/checkout@v4
       - run: npm ci
