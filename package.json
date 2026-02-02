@@ -9,10 +9,7 @@
     "clean": "sh/clean.sh",
     "log": "sh/log.sh",
     "build-node": "sh/build-node.sh",
-    "build-node4": "sh/build-node4.sh",
-    "build-node6": "sh/build-node6.sh",
     "build-browser": "sh/build-browser.sh",
-    "build-ie": "sh/build-ie.sh",
     "build": "sh/build.sh",
     "jshint": "jshint src/*.js",
     "help": "echo 'Grab the source from https://github.com/medenagan/conject to use the build* commands.'"
@@ -31,19 +28,18 @@
     "type": "git",
     "url": "git+https://github.com/medenagan/conject.git"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.6",
-    "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.8.6",
-    "babel-plugin-add-module-exports": "^1.0.2",
-    "browserify": "^16.5.0",
-    "jshint": "^2.11.0",
-    "mocha": "^7.1.0",
-    "uglify-js": "^3.8.0"
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "browserify": "^17.0.1",
+    "jshint": "^2.13.6",
+    "mocha": "^11.3.0",
+    "uglify-js": "^3.19.3"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=20",
+    "npm": ">=10"
   }
 }
