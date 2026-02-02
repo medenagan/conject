@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "A mini-script for lazy sync / async conditional evaluation for node and browser",
   "main": "lib/conject.js",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node lib/conject.js",
     "test": "mocha",
