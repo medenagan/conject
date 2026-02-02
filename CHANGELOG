@@ -1,6 +1,16 @@
 # What's new?
 List of major changes in `conject`
 
+## 0.2.1
+### Removed
+- `Travis` CI support
+
+### Added
+- `GitHub` Actions CI support
+
+### Updated
+- `README.md` badges
+
 ## 0.2.0
 > 2019-01-17
 
